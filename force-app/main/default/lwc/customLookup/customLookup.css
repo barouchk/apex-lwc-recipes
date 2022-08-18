@@ -1,0 +1,13 @@
+/**
+ * Created by bkandov on 29/10/2020.
+ */
+
+.slds-pill_link, .slds-pill--link {
+    width: 100% !important;  
+}
+
+@media only screen and (min-width: 769px) {
+    .label-inline-dropdown{
+        width:67%
+    }
+}

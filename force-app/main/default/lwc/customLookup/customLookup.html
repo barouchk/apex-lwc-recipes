@@ -1,0 +1,145 @@
+<template>
+    <div>
+        <div class="slds-form-element">
+            <div class="slds-form-element__control">
+                <span class="slds-form-element__label" if:true={isLabelExists}>
+                    <abbr if:true={required} class="slds-required">*</abbr>
+                    {labelName}
+                </span>
+                <div class="slds-combobox_container">
+                    <div id="box" class={boxClass} aria-expanded="true" aria-haspopup="listbox" role="combobox">
+                        <div class="slds-form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                            <template if:true={isValue}>
+                                <div class={comboBoxClass}>
+                                    <label class="slds-form-element__label" if:true={inputLabel}>
+                                        <abbr if:true={required} class="slds-required">*</abbr>
+                                        {inputLabel}
+                                    </label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-combobox_container slds-has-selection">
+                                            <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click"
+                                                 aria-expanded="false" aria-haspopup="listbox" role="combobox">
+                                                <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left-right" role="none">
+                                                    <span class="slds-icon_container slds-icon-standard-account slds-combobox__input-entity-icon"
+                                                          title="Account">
+                                                        <lightning-icon icon-name={iconName} alternative-text="acc"></lightning-icon>
+                                                    </span>
+                                                    <div class="slds-input slds-combobox__input slds-combobox__input-value"
+                                                         if:true={hideHref}>{valueObj}</div>
+                                                    <a href={href} class="slds-input slds-combobox__input slds-combobox__input-value"
+                                                       if:false={hideHref}>{valueObj}</a>
+                                                    <button if:false={disabled} class="slds-button slds-button_icon slds-input__icon slds-input__icon_right"
+                                                            title="Remove selected option" onclick={clearValue}>
+                                                        <lightning-button-icon icon-name="utility:close" variant="bare"
+                                                                               size="medium"></lightning-button-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                            <template if:false={isValue}>
+                                <div class="slds-p-top_none">
+                                    <lightning-input disabled={disabled} class={inputClass} type="search" id={uniqueId} value={searchTerm}
+                                                     onclick={handleClick} onblur={inblur} onchange={onChange} required={required}
+                                                     variant={variant} autocomplete="off" label={inputLabel} placeholder={placeholder}>
+                                    </lightning-input>
+                                </div>
+                            </template>
+                        </div>
+                        <div class={comboBoxClass}>
+                            <div class={dropDownClass} role="listbox">
+                                <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                    <template for:each={options} for:item="item">
+                                        <li key={item.Id} onclick={onSelect} data-id={item.Id} data-external={item.ExternalId}
+                                            data-name={item.Name} role="presentation">
+                                            <span class="slds-lookup__item-action slds-lookup__item-action--label" role="option">
+                                                <lightning-icon class="slds-icon slds-icon--small"
+                                                                icon-name={iconName} alternative-text={objName} size="small"></lightning-icon>
+                                                <span class="slds-truncate">{item.Name}</span>
+                                            </span>
+                                        </li>
+                                    </template>
+                                    <template if:true={createRecord}>
+                                        <li onclick={createRecordFunc} role="presentation">
+                                            <span class="slds-lookup__item-action slds-lookup__item-action--label" role="option">
+                                                <lightning-button-icon class="slds-icon slds-icon--small slds-icon-text-default"
+                                                                       variant="border-inverse, bare" icon-name="utility:add" size="small"></lightning-button-icon>
+                                                <span class="slds-truncate">{newObjectCreationLabel}</span>
+                                            </span>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <template if:true={createRecordOpen}>
+        <template if:true={recordTypeSelector}>
+            <div>
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                         aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                    title="Close">
+                                <lightning-button-icon icon-name="utility:close" variant="bare-inverse" size="large"
+                                                       onclick={closeModal}></lightning-button-icon>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                                {newObjectCreationLabel}</h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <div class="slds-radio_faux slds-radio__label">
+                                <lightning-radio-group name="Record Type" options={recordTypeOptions} value={recordTypeId}
+                                                       type="radio" onchange={handleRecTypeChange}>
+                                </lightning-radio-group>
+                            </div>
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <lightning-button label="Cancel" data-dtname="Cancel" onclick={closeModal}></lightning-button>
+                            <lightning-button label="Next" data-dtname="Next" onclick={createRecordMain} variant="brand"></lightning-button>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </div>
+        </template>
+
+        <template if:true={mainRecord}>
+            <div class="main">
+                <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_medium"
+                         aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                    title="Close">
+                                <lightning-button-icon icon-name="utility:close" variant="bare-inverse" size="large"
+                                                       onclick={closeModal}></lightning-button-icon>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                            <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">
+                                {newObjectCreationLabel}</h2>
+                        </header>
+                        <div class={myPadding} id="modal-content-id-2">
+                            <div id="stencilReplacement" class={stencilReplacement}>
+                                <lightning-record-form
+                                        class="recordForm" object-api-name={objName} record-type-id={recordTypeId}
+                                        layout-type="Full" columns="2" onload={handleLoad} density="comfy" onerror={handleError}
+                                        onsuccess={handleSuccess}
+                                ></lightning-record-form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </div>
+        </template>
+    </template>
+</template>
