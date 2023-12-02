@@ -1,0 +1,15 @@
+.counter-container{
+    padding:0;
+    background:white
+}
+
+.bg-primary{
+    background-color: #5d9cec;
+    color: #fff!important;
+}
+
+.bg-primary-dark{
+    background-color: #2f80e7;
+    color: #fff!important;
+}
+
