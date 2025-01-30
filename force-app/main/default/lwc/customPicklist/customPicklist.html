@@ -1,0 +1,10 @@
+<template>
+    <lightning-combobox if:false={searchable}
+                        label={fieldLabel}
+                        value={selectedValue}
+                        options={options}
+                        onchange={handleChange}
+                        required={required}
+                        disabled={disabled}
+    ></lightning-combobox>
+</template>

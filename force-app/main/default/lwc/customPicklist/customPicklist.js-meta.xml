@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__FlowScreen</target>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property label="Record Type Id" name="recordTypeId" type="String" role="inputOnly"/>
+            <property label="Object Name" name="objectApiName" type="String" role="inputOnly"/>
+            <property label="Field Name" name="fieldApiName" type="String" role="inputOnly"/>
+            <property label="Selected Value" name="selectedValue" type="String"/>
+            <property label="Selected Label" name="selectedLabel" type="String"/>
+            <property label="Field Label" name="fieldLabel" type="String"/>
+            <property label="Is Required" name="required" type="Boolean" role="inputOnly"/>
+            <property label="Validation Message" name="validationMessage" description="Will be shown if required=true and value is empty" type="String" role="inputOnly"/>
+            <property label="Searchable Picklist" name="searchable" description="Is Searchable Picklist" type="Boolean" role="inputOnly"/>
+            <property label="Is Dependent Field" name="isDependentField" description="Is Dependent Field" type="Boolean" role="inputOnly"/>
+            <property label="Dependent Value" name="dependentValue" description="The Value to be depended" type="String" role="inputOnly"/>
+            <property label="Is Sortable" name="sortable" description="Is List Option Is Sorted" type="Boolean" role="inputOnly"/>
+            <property label="Auto Alignment" name="autoAlignment" description="Use to overlap modal" type="Boolean" role="inputOnly"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>
