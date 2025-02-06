@@ -1,0 +1,23 @@
+<template>
+    <template if:true={isInput}>
+        <div class={gridClass}>
+            <div class={columnClass} for:each={collection} for:item="option" key={option.value}>
+                <lightning-input type={type} name={name} label={option.label} onchange={handleChange}
+                    value={option.value} checked={option.checked}>
+                </lightning-input>
+            </div>
+        </div>
+    </template>
+
+    <template if:true={isDropdown}>
+        <lightning-combobox name={name} label={label} value={defaultValue} required={required} placeholder={placeholder}
+            options={collection} onchange={handleChange}></lightning-combobox>
+    </template>
+
+    <template if:true={isButton}>
+        <lightning-button-group>
+            <lightning-button for:each={collection} for:item="option" key={option.value} 
+            label={option.label} onclick={handleChange} value={option.value} variant={option.variant}></lightning-button>
+        </lightning-button-group>
+    </template>
+</template>
