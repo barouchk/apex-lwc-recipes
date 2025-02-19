@@ -16,7 +16,7 @@
 
     <template if:true={isButton}>
         <lightning-button-group>
-            <lightning-button for:each={collection} for:item="option" key={option.value} 
+            <lightning-button for:each={collection} for:item="option" key={option.value} icon-name={option.icon} 
             label={option.label} onclick={handleChange} value={option.value} variant={option.variant}></lightning-button>
         </lightning-button-group>
     </template>
